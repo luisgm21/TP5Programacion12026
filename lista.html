@@ -1,36 +1,65 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-  <title>Lista de compras</title>
+    <meta charset="UTF-8">
+    <title>Lista de compras</title>
 </head>
 <body>
+    <h1>Lista de compras del supermercado</h1>
 
-  <h1>Lista de compras</h1>
+    <h2>Agregar producto</h2>
+    <input type="text" id="producto" placeholder="Ej: Leche">
+    <button id="btnAgregar">Agregar</button>
 
-  <input type="text" id="producto" placeholder="Escribí un producto">
-  <button id="btnAgregar">Agregar</button>
+    <h2>Eliminar producto</h2>
+    <input type="text" id="productoEliminar" placeholder="Ej: Leche">
+    <button id="btnEliminar">Eliminar</button>
 
-  <ul id="lista"></ul>
+    <p id="mensaje"></p>
 
-  <script>
-    let input = document.getElementById("producto");
-    let boton = document.getElementById("btnAgregar");
-    let lista = document.getElementById("lista");
+    <ul id="lista"></ul>
 
-    boton.addEventListener("click", function() {
-      let texto = input.value.trim();
+    <script>
+        let input = document.getElementById("producto");
+        let boton = document.getElementById("btnAgregar");
+        let lista = document.getElementById("lista");
+        let inputEliminar = document.getElementById("productoEliminar");
+        let botonEliminar = document.getElementById("btnEliminar");
+        let mensaje = document.getElementById("mensaje");
 
-      if (texto === "") {
-        return;
-      }
+        boton.addEventListener("click", function() {
+            let texto = input.value.trim();
+            if (texto === "") {
+                return;
+            }
+            let nuevo = document.createElement("li");
+            nuevo.textContent = texto;
+            lista.appendChild(nuevo);
+            input.value = "";
+            mensaje.textContent = "";
+        });
 
-      let nuevo = document.createElement("li");
-      nuevo.textContent = texto;
-      lista.appendChild(nuevo);
-
-      input.value = "";
-    });
-  </script>
-
+        botonEliminar.addEventListener("click", function() {
+            let buscar = inputEliminar.value.trim().toLowerCase();
+            if (buscar === "") {
+                return;
+            }
+            let encontrado = false;
+            for (let i = 0; i < lista.children.length; i++) {
+                let item = lista.children[i];
+                if (item.textContent.toLowerCase() === buscar) {
+                    lista.removeChild(item);
+                    encontrado = true;
+                    break;
+                }
+            }
+            if (encontrado) {
+                mensaje.textContent = "Producto eliminado.";
+            } else {
+                mensaje.textContent = "El producto no se encuentra.";
+            }
+            inputEliminar.value = "";
+        });
+    </script>
 </body>
 </html>

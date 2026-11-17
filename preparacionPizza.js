@@ -20,7 +20,7 @@ function prepararPizza(tipo) {
     return promesa;
 }
 
-async function prepararPedido() {
+async function prepararPedido(mensaje) {
     let variedad = prompt("Ingrese la variedad de pizza que desea");
     let parrafo, texto;
     console.log("Preparando pedido ...");
@@ -28,6 +28,7 @@ async function prepararPedido() {
     let tipoPizza = await prepararPizza(variedad);
     console.log(tipoPizza);
     crearParrafoHTML(tipoPizza ,document.body);
+    crearParrafoHTML( mensaje ,document.body);
 }
 
 setTimeout(prepararPedido, 3000, "Tarea de setTimeout");
